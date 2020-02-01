@@ -12,17 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+TARGET_KERNEL_CONFIG := aosp_loire_suzu_defconfig
+
 # Inherit from those products. Most specific first.
-$(call inherit-product, device/sony/suzu/aosp_f5121.mk)
+$(call inherit-product, device/sony/suzu/device.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
-# DualSim
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.multisim.config=dsds \
-    persist.radio.multisim.config=dsds \
-    ro.telephony.default_network=9,1
+$(call inherit-product, vendor/maruos/device-maru.mk)
+$(call inherit-product, vendor/maruos/BoardConfigVendor.mk)
 
-PRODUCT_NAME := aosp_f5122
+# allow /vendor/maruos files
+PRODUCT_RESTRICT_VENDOR_FILES := false
+
+PRODUCT_NAME := maru_f5121
 PRODUCT_DEVICE := suzu
-PRODUCT_MODEL := Xperia X Dual (AOSP)
+PRODUCT_MODEL := Xperia X (AOSP)
 PRODUCT_BRAND := Sony
 PRODUCT_MANUFACTURER := Sony
